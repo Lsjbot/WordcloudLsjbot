@@ -2,6 +2,7 @@
 using SkiaSharp;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 
 namespace WordcloudLsjbot
@@ -23,6 +24,8 @@ namespace WordcloudLsjbot
         double cellsize = minfont / cellratio;
         int xcells;
         int ycells;
+        int xmargin = 2;
+        int ymargin = 1;
         int colorcontrast = 100000;
         float minh = 0;
         float maxh = 250;
@@ -30,7 +33,7 @@ namespace WordcloudLsjbot
         float maxs = 99;
         float minv = 0;
         float maxv = 99;
-        string shape = "circle";
+        string shape = "rectangle";
         bool skipcentralsquare = false;
         bool titlespecial = false;
         SKColor backgroundcolor = new SKColor(225, 182, 191); //ljusrosa
@@ -93,15 +96,25 @@ namespace WordcloudLsjbot
             taken = new bool[xcells, ycells];
         }
 
-
-        public void SetSpecialColors(SKColor skc, SKColor w1c, SKColor w2c)
+        public void SetSpacing(int xspace,int yspace)
         {
-            backgroundcolor = skc;
+            xmargin = xspace;
+            ymargin = yspace;
+        }
+
+
+        public void SetSpecialColors(SKColor w1c, SKColor w2c)
+        {
             word1color = w1c;
             word2color = w2c;
         }
 
-        public void SetSpecificWordColor(SKColor wc)
+        public void SetBackgroundColor(SKColor skc)
+        {
+            backgroundcolor = skc;
+        }
+
+        public void SetSpecificWordColor(SKColor? wc)
         {
             wordcolor = wc;
         }
@@ -189,6 +202,21 @@ namespace WordcloudLsjbot
                             taken[x, y] = false;
                     }
 
+            }
+            else if (shape == "triangle")
+            {
+                for (int y=0;y<ycells;y++)
+                {
+                    for (int x=0;x<xcells;x++)
+                    {
+                        if (2 * aspectratio*x < y || 2 *aspectratio* (xcells - x) < y)
+                        {
+                            taken[x, y] = true;
+                        }
+                        else
+                            taken[x, y] = false;
+                    }
+                }
             }
 
             if (skipcentralsquare)
@@ -398,7 +426,8 @@ namespace WordcloudLsjbot
 
         public SKBitmap Draw(string title)
         {
-            using (var bitmap = new SKBitmap((int)xsize, (int)ysize))
+            //using (var bitmap = new SKBitmap((int)xsize, (int)ysize))
+            var bitmap = new SKBitmap((int)xsize, (int)ysize);
             using (var canvas = new SKCanvas(bitmap))
             {
 
@@ -456,7 +485,32 @@ namespace WordcloudLsjbot
 
         public SKData DrawData(string title)
         {
-            return Draw(title).Encode(SKEncodedImageFormat.Png, 100);
+            var bitmap = Draw(title);
+            return EncodeBitmap(bitmap);
+        }
+
+        public SKData EncodeBitmap(SKBitmap bitmap)
+        {
+            return bitmap.Encode(SKEncodedImageFormat.Png, 100);
+        }
+
+        public void DrawToFile(string title, string filename)
+        {
+            var data = DrawData(title);
+            DrawToFile(title, filename, data);
+        }
+
+        public void DrawToFile(string title, string filename,SKData data)
+        {
+            using (Stream s = File.Create(filename))
+            {
+                data.SaveTo(s);
+            }
+        }
+
+        public void DrawToFile(string title, string filename, SKBitmap bitmap)
+        {
+            DrawToFile(title, filename, EncodeBitmap(bitmap));
         }
 
         public Tuple<int, int> findspace(WordEntryClass we, int sign)
@@ -557,8 +611,8 @@ namespace WordcloudLsjbot
             SKRect rect = new SKRect();
             paint.MeasureText(we.word, ref rect);
 
-            int wsizey = (int)(rect.Height / cellsize) + 1;
-            int wsizex = (int)(rect.Width / cellsize) + 2;
+            int wsizey = (int)(rect.Height / cellsize) + ymargin;
+            int wsizex = (int)(rect.Width / cellsize) + xmargin;
 
             return new Tuple<int, int>(wsizex, wsizey);
         }
