@@ -55,6 +55,29 @@ namespace WordcloudLsjbot
             taken = new bool[xcells, ycells];
         }
 
+        public WordCloudClass(int xsizepar, int ysizepar)
+        {
+            Console.WriteLine("WordcloudLsjbot. Sverker Johansson 2023.");
+            xsize = xsizepar;
+            ysize = ysizepar;
+            aspectratio = ysize / xsize;
+
+            xcells = (int)(xsize / cellsize);
+            ycells = (int)(ysize / cellsize);
+            taken = new bool[xcells, ycells];
+        }
+
+        public void SetSpecial(bool skipcentral, bool titspecial)
+        {
+            skipcentralsquare = skipcentral;
+            titlespecial = titspecial;
+        }
+
+        public void SetColorContrast(int contrast)
+        {
+            colorcontrast = contrast;
+        }
+
         public void SetShape(string shapepar)
         {
             shape = shapepar;
