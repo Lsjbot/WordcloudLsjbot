@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Lsjbot/WordcloudLsjbot</RepositoryUrl>
+    <Description>Simple and versatile tool for creating word clouds. Uses SkiaSharp for graphics.</Description>
   </PropertyGroup>
 
   <ItemGroup>

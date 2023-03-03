@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordcloudLsjbot", "WordcloudLsjbot\WordcloudLsjbot.csproj", "{2A937CDD-ECAA-448E-81D2-4C921DB35A38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordcloudLsjbot", "WordcloudLsjbot\WordcloudLsjbot.csproj", "{2A937CDD-ECAA-448E-81D2-4C921DB35A38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudUI", "WordCloudUI\WordCloudUI.csproj", "{0B37F607-3544-4C14-954C-AEE501E28992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2A937CDD-ECAA-448E-81D2-4C921DB35A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A937CDD-ECAA-448E-81D2-4C921DB35A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A937CDD-ECAA-448E-81D2-4C921DB35A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B37F607-3544-4C14-954C-AEE501E28992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B37F607-3544-4C14-954C-AEE501E28992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B37F607-3544-4C14-954C-AEE501E28992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B37F607-3544-4C14-954C-AEE501E28992}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

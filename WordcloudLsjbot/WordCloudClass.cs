@@ -146,12 +146,53 @@ namespace WordcloudLsjbot
             return true;
         }
 
+        char[] trimchars = " .-,;:'?!0123456789()[]{}\"".ToCharArray();
+        private string cookkey(string rawkey)
+        {
+            return rawkey.Trim(trimchars).ToLower();//.Replace(" ","_");
+        }
+
+
+
         public void Add(string word, double weight)
         {
             if (words.ContainsKey(word))
                 words[word] += weight;
             else
                 words.Add(word, weight);
+        }
+
+        public void Add(Dictionary<string,double> wdict)
+        {
+            foreach (string w in wdict.Keys)
+                Add(w, wdict[w]);
+        }
+
+        public void AddTextfile(string filename)
+        {
+            using (StreamReader sr = new StreamReader(File.OpenRead(filename)))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    AddText(line);
+                }
+            }
+        }
+
+        public void AddText(string text)
+        {
+            string[] words = text.Split();
+            foreach (string raw in words)
+            {
+                string cooked = cookkey(raw);
+                Add(cooked, 1);
+            }
+        }
+
+        public void Clear()
+        {
+            words.Clear();
         }
 
         public int Arrange()
