@@ -11,6 +11,16 @@ Simple and versatile tool for creating word clouds. Uses SkiaSharp for graphics.
     mycloud.Arrange();                           //arrange the words into a cloud
     var image = mycloud.Draw();                  //get the cloud as an image
 
+**Input**
+
+Add(string word, double weight): Add a single word with weight. Weight determines text size in cloud.
+
+Add(Dictionary<string,double> wdict): Add a set of words with corresponding weights.
+
+AddText(string text): The text will be split in words, which are then added with weight 1. Multiple occurrences of the same word adds weight. Can be called repeatedly with cumulative effect.
+
+AddTextfile(string filename): Reads a text from filename, and then calls AddText with that text.
+
 **Cloud options (to be called between constructor and Arrange):**
 
 SetShape(string shape): Shape of cloud. Valid values: "circle", "ellipse", "rectangle". Defaults to rectangle.
@@ -30,4 +40,5 @@ SetSpecialColors(SKColor w1c, SKColor, w2c): If titspecial is true, color w1c is
 **Output**
 
 SKBitmap Draw(string title). Returns the cloud as a bitmap, with the string "title" in the upper corner.
+
 SKData DrawData(string title). Returns the cloud as data (png encoded), for further processing.
