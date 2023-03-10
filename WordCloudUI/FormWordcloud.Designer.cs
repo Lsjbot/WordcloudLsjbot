@@ -73,6 +73,7 @@ namespace WordCloudUI
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.Clipboardbutton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -490,11 +491,22 @@ namespace WordCloudUI
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // Clipboardbutton
+            // 
+            this.Clipboardbutton.Location = new System.Drawing.Point(1254, 780);
+            this.Clipboardbutton.Name = "Clipboardbutton";
+            this.Clipboardbutton.Size = new System.Drawing.Size(201, 40);
+            this.Clipboardbutton.TabIndex = 43;
+            this.Clipboardbutton.Text = "Copy cloud to clipboard";
+            this.Clipboardbutton.UseVisualStyleBackColor = true;
+            this.Clipboardbutton.Click += new System.EventHandler(this.Clipboardbutton_Click);
+            // 
             // FormWordcloud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1492, 1180);
+            this.Controls.Add(this.Clipboardbutton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TByspace);
             this.Controls.Add(this.TBxspace);
@@ -587,5 +599,6 @@ namespace WordCloudUI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button Clipboardbutton;
     }
 }

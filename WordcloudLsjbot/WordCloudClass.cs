@@ -11,6 +11,7 @@ namespace WordcloudLsjbot
     {
         private Dictionary<string, double> words = new Dictionary<string, double>();
         private List<WordEntryClass> items = new List<WordEntryClass>();
+        public List<string> blacklist = new List<string>();
 
         public static double minfont = 12;
         public static double maxfont = 64;
@@ -68,6 +69,24 @@ namespace WordcloudLsjbot
             xcells = (int)(xsize / cellsize);
             ycells = (int)(ysize / cellsize);
             taken = new bool[xcells, ycells];
+        }
+
+        public void ReadBlacklist()
+        {
+            ReadBlacklist("blacklist.txt");
+        }
+
+        public void ReadBlacklist(string filename)
+        {
+            using (StreamReader sr = new StreamReader(File.OpenRead(filename)))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string w = sr.ReadLine();
+                    blacklist.Add(w);
+                }
+            }
+
         }
 
         public void SetSpecial(bool skipcentral, bool titspecial)
@@ -186,7 +205,8 @@ namespace WordcloudLsjbot
             foreach (string raw in words)
             {
                 string cooked = cookkey(raw);
-                Add(cooked, 1);
+                if (!blacklist.Contains(cooked))
+                    Add(cooked, 1);
             }
         }
 

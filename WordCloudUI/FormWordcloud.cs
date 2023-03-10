@@ -46,6 +46,7 @@ namespace WordCloudUI
             int ysize = util.tryconvert(TBheight.Text);
             var wcc = new WordcloudLsjbot.WordCloudClass(xsize, ysize,CBbackpage.Checked,100000,CBtitspecial.Checked);
 
+            wcc.ReadBlacklist();
             if (CBtext.Checked)
             {
                 openFileDialog1.Title = "Text file:";
@@ -523,6 +524,11 @@ namespace WordCloudUI
         private void CBfile_MouseHover(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(CBfile, "File with each line containing\nword<tab>weight"); // you can change the first parameter (textbox3) on any control you wanna focus
+        }
+
+        private void Clipboardbutton_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetImage(pictureBox1.Image);
         }
     }
 }
